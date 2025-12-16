@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>IT Specialist Scenario Quiz</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #2c3e50);
+            color: #fff;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            animation: fadeIn 1s ease-out;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            color: #4caf50; /* Kelly Green */
+        }
+
+        .scenario {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            animation: slideUp 0.8s ease-out;
+        }
+
+        .scenario h2 {
+            color: #4caf50; /* Kelly Green */
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .scenario p,
+        .scenario ul {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .priority-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .priority-item {
+            flex: 1;
+            min-width: 250px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
+            color: #e0f2f1;
+        }
+
+        .priority-item:hover {
+            transform: translateY(-5px);
+            background: rgba(76, 175, 80, 0.15); /* Kelly Green highlight */
+            border-color: #4caf50;
+            box-shadow: 0 10px 20px rgba(76, 175, 80, 0.4);
+            color: #a5d6a7;
+        }
+
+        .priority-item.selected {
+            background: rgba(76, 175, 80, 0.25); /* Kelly Green selected */
+            border-color: #4caf50;
+            transform: scale(1.02);
+            color: #a5d6a7;
+        }
+
+        .priority-item h3 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            color: #4caf50; /* Kelly Green */
+        }
+
+        .feedback {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 25px;
+            margin-top: 30px;
+            display: none;
+            animation: fadeIn 0.5s ease-out;
+            color: #c8e6c9; /* Light green text */
+            border: 1px solid #4caf50;
+        }
+
+        .feedback h3 {
+            color: #4caf50; /* Kelly Green */
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .feedback p {
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        button {
+            background: linear-gradient(45deg, #2196f3, #4caf50); /* Blue to Kelly Green gradient */
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(33, 150, 243, 0.3);
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(33, 150, 243, 0.5);
+        }
+
+        button:active {
+            transform: translateY(1px);
+        }
+
+        .student-login {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 25px;
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .student-login h3 {
+            color: #4caf50; /* Kelly Green */
+            margin-bottom: 20px;
+        }
+
+        input {
+            width: 100%;
+            max-width: 300px;
+            padding: 12px 20px;
+            margin: 10px 0;
+            border-radius: 50px;
+            border: none;
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            font-size: 1rem;
+            text-align: center;
+        }
+
+        input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .dashboard {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 25px;
+            margin-top: 30px;
+            display: none;
+        }
+
+        .dashboard h2 {
+            color: #4caf50; /* Kelly Green */
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th,
+        td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        th {
+            color: #4caf50; /* Kelly Green */
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background: rgba(76, 175, 80, 0.1);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(33, 150, 243, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(33, 150, 243, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(33, 150, 243, 0);
+            }
+        }
+
+        .teacher-login {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px 20px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #4caf50;
+        }
+
+        .teacher-login:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .visible {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="teacher-login" onclick="showDashboard()">
+        <i class="fas fa-chalkboard-teacher"></i>
+        <span>Teacher Dashboard</span>
+    </div>
+
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-laptop-code"></i> IT Specialist Challenge</h1>
+            <p>Test your decision-making skills in real-world scenarios</p>
+        </header>
+
+        <div class="scenario">
+            <h2><i class="fas fa-exclamation-circle"></i> Scenario</h2>
+            <p>You've just been hired as the IT Specialist for a mid-size company. This morning, you receive three messages at the same time:</p>
+            <ul>
+                <li><i class="fas fa-user"></i> A user says their computer won't boot.</li>
+                <li><i class="fas fa-server"></i> The network monitoring tool shows unusual traffic on the server.</li>
+                <li><i class="fas fa-briefcase"></i> Your manager asks you to recommend new hardware for a high-performance computing task.</li>
+            </ul>
+            <p>Reflect on this scenario using the priority selector below!</p>
+        </div>
+
+        <div class="student-login">
+            <h3><i class="fas fa-user-graduate"></i> Student Login</h3>
+            <input type="text" id="studentName" placeholder="Enter your name to begin" />
+            <button onclick="startQuiz()">Start Challenge</button>
+        </div>
+
+        <div id="quizSection" class="hidden">
+            <h2 style="text-align: center; margin-bottom: 20px;"><i class="fas fa-sort-amount-down"></i> Prioritize Your Actions</h2>
+            <p style="text-align: center; margin-bottom: 30px;">Select what you would prioritize first—and why:</p>
+
+            <div class="priority-list">
+                <div class="priority-item" onclick="selectOption(this, 'boot')">
+                    <h3><i class="fas fa-power-off"></i> Computer Won't Boot</h3>
+                    <p>A user says their computer won't boot.</p>
+                </div>
+
+                <div class="priority-item" onclick="selectOption(this, 'hardware')">
+                    <h3><i class="fas fa-microchip"></i> Hardware Recommendation</h3>
+                    <p>Your manager asks you to recommend new hardware for a high-performance computing task.</p>
+                </div>
+
+                <div class="priority-item" onclick="selectOption(this, 'network')">
+                    <h3><i class="fas fa-network-wired"></i> Unusual Network Traffic</h3>
+                    <p>The network monitoring tool shows unusual traffic on the server.</p>
+                </div>
+            </div>
+
+            <div class="controls">
+                <button onclick="submitAnswer()" class="pulse"><i class="fas fa-paper-plane"></i> Submit Answer</button>
+            </div>
+        </div>
+
+        <div id="feedback" class="feedback">
+            <h3><i class="fas fa-comment-dots"></i> Feedback</h3>
+            <p id="feedbackText"></p>
+            <p>Click through every option to learn more about prioritizing IT tasks!</p>
+        </div>
+
+        <div id="dashboard" class="dashboard">
+            <h2><i class="fas fa-chart-bar"></i> Teacher Dashboard</h2>
+            <p>Student Responses:</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Student Name</th>
+                        <th>Selected Priority</th>
+                        <th>Date/Time</th>
+                    </tr>
+                </thead>
+                <tbody id="responseTable">
+                    <!-- Responses will be added here dynamically -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        const webAppUrl = 'YOUR_WEB_APP_URL_HERE'; // Replace with your deployed Google Apps Script URL
+
+        let selectedOption = '';
+        let studentName = '';
+        let responses = [];
+
+        function startQuiz() {
+            studentName = document.getElementById('studentName').value.trim();
+            if (!studentName) {
+                alert('Please enter your name to begin');
+                return;
+            }
+
+            document.querySelector('.student-login').classList.add('hidden');
+            document.getElementById('quizSection').classList.remove('hidden');
+        }
+
+        function selectOption(element, option) {
+            document.querySelectorAll('.priority-item').forEach((item) => {
+                item.classList.remove('selected');
+            });
+
+            element.classList.add('selected');
+            selectedOption = option;
+
+            showFeedback(option);
+        }
+
+        function showFeedback(option) {
+            const feedback = document.getElementById('feedback');
+            const feedbackText = document.getElementById('feedbackText');
+
+            switch (option) {
+                case 'boot':
+                    feedbackText.innerHTML =
+                        '<strong>Computer Won\'t Boot:</strong> Good reasoning. Starting with hardware diagnostics is a practical first step and reflects real IT troubleshooting workflow.';
+                    break;
+                case 'hardware':
+                    feedbackText.innerHTML =
+                        '<strong>Hardware Recommendation:</strong> Good thinking—planning for future performance needs shows long-term, architecture-aware thinking.';
+                    break;
+                case 'network':
+                    feedbackText.innerHTML =
+                        '<strong>Network Traffic:</strong> Good choice. Unusual server activity can indicate security or performance issues that may impact the entire organization.';
+                    break;
+            }
+
+            feedback.style.display = 'block';
+        }
+
+        function submitAnswer() {
+            if (!selectedOption) {
+                alert('Please select a priority first');
+                return;
+            }
+
+            if (!studentName) {
+                alert('Please enter your name');
+                return;
+            }
+
+            const response = {
+                name: studentName,
+                priority: selectedOption,
+                timestamp: new Date().toLocaleString(),
+            };
+
+            fetch(webAppUrl, {
+                method: 'POST',
+                body: JSON.stringify(response),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+                .then((res) => res.json())
+                .then((data) => {
+                    if (data.result === 'success') {
+                        alert(`Thank you, ${studentName}! Your response has been recorded.`);
+                        resetQuiz();
+                    } else {
+                        alert('Error saving response: ' + data.message);
+                    }
+                })
+                .catch((error) => {
+                    alert('Error connecting to server: ' + error.message);
+                });
+        }
+
+        function resetQuiz() {
+            document.getElementById('studentName').value = '';
+            document.getElementById('quizSection').classList.add('hidden');
+            document.querySelector('.student-login').classList.remove('hidden');
+            document.querySelectorAll('.priority-item').forEach((item) => {
+                item.classList.remove('selected');
+            });
+            document.getElementById('feedback').style.display = 'none';
+            selectedOption = '';
+            studentName = '';
+        }
+
+        function showDashboard() {
+            const password = prompt('Enter teacher password:');
+            if (password === 'teacher123') {
+                document.getElementById('dashboard').style.display = 'block';
+                document.getElementById('quizSection').classList.add('hidden');
+                document.querySelector('.student-login').classList.add('hidden');
+                loadResponses();
+            } else if (password !== null) {
+                alert('Incorrect password');
+            }
+        }
+
+        function loadResponses() {
+            // For demo, no backend to fetch responses, so dashboard is empty
+            // You can extend this to fetch from a backend if needed
+            const tbody = document.getElementById('responseTable');
+            tbody.innerHTML = '<tr><td colspan="3" style="text-align:center;">Responses are stored in Google Sheets.</td></tr>';
+        }
+
+        // Close dashboard when clicking outside
+        document.addEventListener('click', function (event) {
+            const dashboard = document.getElementById('dashboard');
+            const teacherLogin = document.querySelector('.teacher-login');
+
+            if (
+                dashboard.style.display === 'block' &&
+                !dashboard.contains(event.target) &&
+                !teacherLogin.contains(event.target)
+            ) {
+                dashboard.style.display = 'none';
+                document.querySelector('.student-login').classList.remove('hidden');
+            }
+        });
+    </script>
+</body>
+</html>
